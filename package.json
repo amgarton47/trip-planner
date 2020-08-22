@@ -24,6 +24,8 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4",
     "pg": "^8.3.2",
-    "sequelize": "^6.3.4"
+    "sequelize": "^6.3.4",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   }
 }
