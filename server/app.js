@@ -44,7 +44,7 @@ const startApp = async () => {
     console.log("There was an issue syncing with the databse" + err);
   }
 
-  app.listen(PORT, () => {
+  app.listen(process.env.PORT || PORT, () => {
     console.log(`trip planner is up and running on port ${PORT}`);
     console.log(`http://localhost:${PORT}`);
   });
