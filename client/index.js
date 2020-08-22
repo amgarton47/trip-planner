@@ -18,14 +18,14 @@ const state = {
   selectedAttractions: [],
 };
 
-// const home = marker("hotel", [-87.6673, 41.95827]);
-// home.addTo(map);
+const home = marker("hotels", [-87.6673, 41.95827]);
+home.addTo(map);
 
-// const highschool = marker("activity", [-87.62793, 41.872898]);
-// highschool.addTo(map);
+const highschool = marker("activities", [-87.62793, 41.872898]);
+highschool.addTo(map);
 
-// const elpres = marker("restaurant", [-87.66863, 41.92861]);
-// elpres.addTo(map);
+const elpres = marker("restaurants", [-87.66863, 41.92861]);
+elpres.addTo(map);
 
 const makeOption = (attraction, selector) => {
   const option = new Option(attraction.name, attraction.id);
