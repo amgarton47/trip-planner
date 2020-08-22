@@ -4,7 +4,7 @@ import token from "../accessToken";
 
 import fetchAllAttractions from "./api";
 
-mapboxgl.accessToken = token;
+mapboxgl.accessToken = token || process.token;
 
 const map = new mapboxgl.Map({
   container: "map",
