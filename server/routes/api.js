@@ -13,4 +13,31 @@ apiRouter.get("/", async (req, res, next) => {
   res.json({ hotels, restaurants, activities });
 });
 
+apiRouter.post("/add/hotel", async (req, res, next) => {
+  try {
+    Hotel.create(req.body);
+  } catch (err) {
+    next(err);
+  }
+  res.redirect("/");
+});
+
+apiRouter.post("/add/restaurant", async (req, res, next) => {
+  try {
+    Restaurant.create(req.body);
+  } catch (err) {
+    next(err);
+  }
+  res.redirect("/");
+});
+
+apiRouter.post("/add/activity", async (req, res, next) => {
+  try {
+    Activity.create(req.body);
+  } catch (err) {
+    next(err);
+  }
+  res.redirect("/");
+});
+
 module.exports = apiRouter;
