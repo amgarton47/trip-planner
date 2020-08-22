@@ -2,6 +2,8 @@ import mapboxgl from "mapbox-gl";
 import marker from "./marker";
 import token from "../accessToken";
 
+import fetchAllAttractions from "./api";
+
 mapboxgl.accessToken = token;
 
 const map = new mapboxgl.Map({
@@ -31,14 +33,9 @@ const makeOption = (attraction, selector) => {
   select.appendChild(option);
 };
 
+// adds all attractions from database as options to select drop down on the D
 const populateAttractions = async () => {
-  try {
-    state.attractions = await fetch("/api");
-    state.attractions = await state.attractions.json();
-  } catch (err) {
-    console.log(err);
-  }
-
+  state.attractions = await fetchAllAttractions();
   const { hotels, restaurants, activities } = state.attractions;
 
   hotels.forEach((hotel) => makeOption(hotel, "hotels-choices"));
@@ -50,6 +47,7 @@ const populateAttractions = async () => {
 
 populateAttractions();
 
+// create click event listeners for adding attractions to the itinerary
 ["hotels", "activities", "restaurants"].forEach((attTyp) => {
   document.getElementById(`${attTyp}-add`).addEventListener("click", () => {
     const attractionId = parseInt(
@@ -74,29 +72,35 @@ populateAttractions();
 });
 
 const addAttraction = (attraction, attractionType) => {
-  const m = marker(attractionType, attraction.place.location);
-  m.addTo(map);
+  // create and add the map marker to the DOM
+  const mrk = marker(attractionType, attraction.place.location);
+  mrk.addTo(map);
   map.flyTo({ center: attraction.place.location, zoom: 15 });
 
+  // create the remove itinirary button
   const removeAttractionButton = document.createElement("button");
   removeAttractionButton.className = "remove-btn";
   removeAttractionButton.append("x");
 
+  // create the itinerary item
   const itineraryItem = document.createElement("li");
   itineraryItem.className = "itinerary-item";
   itineraryItem.append(attraction.name, removeAttractionButton);
 
+  // add itinerary item to dom
   document.getElementById(`${attractionType}-list`).append(itineraryItem);
 
+  // when remove button is clicked, remove the itinerary item/marker from the DOM,
+  // remove the selected attraction from state, and recenter map camera to original coords
   removeAttractionButton.addEventListener("click", () => {
     itineraryItem.remove();
+    mrk.remove();
 
     state.selectedAttractions.filter(
       (selected) =>
         selected.id !== attraction.id || selected.type !== attractionType
     );
 
-    m.remove();
     map.flyTo({ center: [-87.65332, 41.92136], zoom: 12.3 });
   });
 };
