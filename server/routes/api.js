@@ -40,4 +40,13 @@ apiRouter.post("/add/activity", async (req, res, next) => {
   res.redirect("/");
 });
 
+apiRouter.post("/add/place", async (req, res, next) => {
+  try {
+    Place.create(req.body);
+  } catch (err) {
+    next(err);
+  }
+  res.redirect("/");
+});
+
 module.exports = apiRouter;
