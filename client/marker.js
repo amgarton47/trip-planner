@@ -1,9 +1,9 @@
 import mapbox from "mapbox-gl";
 
 const icons = {
-  activity: "http://i.imgur.com/WbMOfMl.png",
-  hotel: "http://i.imgur.com/D9574Cu.png",
-  restaurant: "http://i.imgur.com/cqR6pUI.png",
+  activities: "http://i.imgur.com/WbMOfMl.png",
+  hotels: "http://i.imgur.com/D9574Cu.png",
+  restaurants: "http://i.imgur.com/cqR6pUI.png",
 };
 
 function marker(type, coords) {

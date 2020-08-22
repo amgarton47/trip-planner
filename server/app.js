@@ -5,6 +5,8 @@ const path = require("path");
 
 const { db } = require("./db");
 
+const apiRoute = require("./routes/api");
+
 // logging middleware
 const morgan = require("morgan");
 app.use(morgan("dev"));
@@ -19,6 +21,8 @@ app.use(express.urlencoded({ extended: false }));
 app.get("/", (req, res, next) => {
   res.send("Root page!");
 });
+
+app.use("/api", apiRoute);
 
 // 404 error handler
 app.use((req, res, next) => {
@@ -35,7 +39,7 @@ app.use((err, req, res, next) => {
 
 const startApp = async () => {
   try {
-    await db.sync({ force: true });
+    await db.sync(/*{ force: true }*/);
   } catch (err) {
     console.log("There was an issue syncing with the databse" + err);
   }
